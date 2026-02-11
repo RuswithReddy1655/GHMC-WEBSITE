@@ -1,0 +1,143 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f3f5f7;
+}
+
+
+/* HEADER */
+.header{
+    text-align:center;
+    padding:25px;
+    background:white;
+    border-bottom:2px solid #ddd;
+}
+
+.header h1{
+    color:#0b3d91;
+    font-size:28px;
+}
+
+.header h2{
+    margin-top:6px;
+    font-size:18px;
+    color:#0b3d91;
+}
+
+
+/* PERFECT CENTERING */
+.main{
+    height:calc(100vh - 120px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+
+/* CARD */
+.card{
+    width:380px;
+    background:white;
+    padding:35px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.title{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+
+/* Toggle */
+.toggle{
+    display:flex;
+    border-radius:8px;
+    overflow:hidden;
+    margin-bottom:20px;
+}
+
+.toggle-btn{
+    flex:1;
+    padding:10px;
+    background:#e5e5e5;
+    border:none;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.toggle-btn.active{
+    background:#0f5132;
+    color:white;
+}
+
+
+/* Inputs */
+label{
+    font-size:14px;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin-top:6px;
+    margin-bottom:18px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+
+/* Password wrap */
+.password-wrap{
+    position:relative;
+}
+
+.password-wrap input{
+    padding-right:80px;
+}
+
+.forgot{
+    position:absolute;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:13px;
+    color:#6a0dad;
+    cursor:pointer;
+}
+
+
+/* Button */
+.login-btn{
+    width:100%;
+    padding:12px;
+    background:#0f5132;
+    color:white;
+    border:none;
+    border-radius:6px;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.login-btn:hover{
+    background:#0c3d26;
+}
+
+
+/* Links */
+.links{
+    text-align:center;
+    margin-top:15px;
+}
+
+.links a{
+    display:block;
+    margin:6px 0;
+    color:#6a0dad;
+    text-decoration:none;
+}

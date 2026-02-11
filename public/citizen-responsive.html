@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GHMC Citizen Panel</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            margin:0;
+            overflow:hidden;
+        }
+
+        /* ===== FULL HEIGHT ===== */
+        .vh-100{
+            height:100vh;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar{
+            background:#0d2a4a;
+            color:white;
+            min-height:100vh;
+        }
+
+        .sidebar a{
+            color:white;
+            text-decoration:none;
+            display:block;
+            padding:10px 0;
+        }
+
+        /* ===== CONTENT ===== */
+        .content{
+            background:#eef2f5;
+            overflow:auto;
+        }
+
+        .card{
+            border-radius:12px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container-fluid vh-100">
+
+    <div class="row vh-100">
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <!-- Desktop sidebar -->
+        <div class="col-md-3 col-lg-2 d-none d-md-block sidebar p-3">
+
+            <h4>Citizen Panel</h4>
+
+            <a href="#">My Complaints</a>
+            <a href="report-issue.html">Report Issue</a>
+            <a href="login.html">Logout</a>
+
+        </div>
+
+
+        <!-- ================= MOBILE NAVBAR ================= -->
+
+        <nav class="navbar navbar-dark bg-dark d-md-none">
+            <div class="container-fluid">
+
+                <button class="btn btn-light"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#mobileSidebar">
+                    ☰
+                </button>
+
+                <span class="navbar-brand">GHMC</span>
+            </div>
+        </nav>
+
+
+        <!-- ================= OFFCANVAS SIDEBAR (Mobile) ================= -->
+
+        <div class="offcanvas offcanvas-start sidebar"
+             tabindex="-1"
+             id="mobileSidebar">
+
+            <div class="offcanvas-header">
+                <h5>Citizen Panel</h5>
+                <button class="btn-close btn-close-white"
+                        data-bs-dismiss="offcanvas"></button>
+            </div>
+
+            <div class="offcanvas-body">
+                <a href="#">My Complaints</a>
+                <a href="report-issue.html">Report Issue</a>
+                <a href="login.html">Logout</a>
+            </div>
+        </div>
+
+
+        <!-- ================= CONTENT ================= -->
+
+        <div class="col-md-9 col-lg-10 content p-4">
+
+            <h3 class="mb-4">My Complaints</h3>
+
+            <div class="row g-3">
+
+                <!-- Example cards -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="card p-3 shadow">
+                        Complaint Card
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="card p-3 shadow">
+                        Complaint Card
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="card p-3 shadow">
+                        Complaint Card
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

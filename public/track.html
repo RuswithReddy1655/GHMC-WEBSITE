@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Track Complaint</title>
+
+<style>
+body{
+    font-family:Arial;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background:#f2f2f2;
+}
+
+.box{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    width:400px;
+    box-shadow:0 0 10px #ccc;
+}
+
+input,select{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    background:#14532d;
+    color:white;
+    border:none;
+}
+
+.card{
+    margin-top:10px;
+    padding:10px;
+    background:#fafafa;
+    border-radius:8px;
+}
+
+img{
+    width:100%;
+    margin-top:5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h3>Track Complaint</h3>
+
+<select id="mode">
+    <option value="id">Search by Complaint ID</option>
+    <option value="mobile">Search by Mobile Number</option>
+</select>
+
+<input id="value" placeholder="Enter value">
+
+<button onclick="searchComplaint()">Search</button>
+
+<div id="result"></div>
+
+</div>
+
+
+<script>
+async function searchComplaint(){
+
+    const mode = document.getElementById("mode").value;
+    const val = document.getElementById("value").value.trim();
+    const result = document.getElementById("result");
+
+    result.innerHTML="";
+
+    let url;
+
+    if(mode==="id"){
+        url = "/api/complaints/" + val;
+    }else{
+        url = "/api/complaints/mobile/" + val;
+    }
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if(data.error){
+        result.innerHTML = "❌ Not found";
+        return;
+    }
+
+    const list = Array.isArray(data) ? data : [data];
+
+    list.forEach(c=>{
+
+        result.innerHTML += `
+            <div class="card">
+                <b>ID:</b> ${c.complaintId}<br>
+                <b>Status:</b> ${c.status}<br>
+                <b>Area:</b> ${c.address}<br>
+                <b>Description:</b> ${c.type}
+                ${c.image ? `<img src="${c.image}">` : ""}
+                ${c.afterImage ? `<img src="${c.afterImage}">` : ""}
+            </div>
+        `;
+    });
+}
+</script>
+
+</body>
+</html>

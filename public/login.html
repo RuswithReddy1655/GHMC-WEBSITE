@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GHMC Login</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .toggle-btn{
+            padding:8px 16px;
+            border:none;
+            background:#e5e5e5;
+            cursor:pointer;
+        }
+
+        .toggle-btn.active{
+            background:#14532d;
+            color:white;
+        }
+
+        #trackLink{
+            display:block;
+            margin-top:10px;
+            color:#6c2bd9;
+            font-weight:bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <h1>GREATER HYDERABAD MUNICIPAL CORPORATION</h1>
+</header>
+
+<div class="main">
+
+    <div class="card">
+
+        <h3>Log in</h3>
+
+        <!-- ===== Toggle ===== -->
+        <div class="toggle">
+            <button type="button" class="toggle-btn active"
+                onclick="setRole('citizen', this)">
+                As Citizen
+            </button>
+
+            <button type="button" class="toggle-btn"
+                onclick="setRole('admin', this)">
+                As Admin
+            </button>
+        </div>
+
+
+        <!-- ===== Login Form ===== -->
+        <form id="loginForm">
+
+            <label id="userLabel">Mobile Number</label>
+            <input type="text" id="userInput" required>
+
+            <label>Password</label>
+            <input type="password" id="password" required>
+
+            <button type="submit" class="login-btn">Login</button>
+
+        </form>
+
+
+        <!-- ===== Links ===== -->
+        <div class="links">
+
+            <button type="button" id="registerBtn">
+                New User? Register Here
+            </button>
+
+            <!-- ✅ visible only for citizen -->
+          <a href="/track.html" id="trackLink">
+    Track Complaint
+</a>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="js/login.js"></script>
+
+</body>
+</html>

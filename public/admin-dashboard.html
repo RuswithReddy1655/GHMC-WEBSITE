@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{
+  font-family:Arial;
+  background:#f5f6fa;
+  padding:20px;
+}
+
+.overview{
+  display:flex;
+  gap:20px;
+  justify-content:center;
+  margin-bottom:25px;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  width:150px;
+  text-align:center;
+  font-weight:bold;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
+  gap:20px;
+}
+
+.complaint{
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  box-shadow:0 3px 8px rgba(0,0,0,.1);
+}
+
+img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:6px;
+  margin:5px 0;
+}
+
+.chart-box{
+  width:400px;
+  margin:20px auto;
+}
+
+button{
+  margin-top:5px;
+  padding:6px 10px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Admin Overview</h2>
+
+<div class="overview">
+  <div class="card">Total<br><span id="total">0</span></div>
+  <div class="card">Pending<br><span id="pending">0</span></div>
+  <div class="card">In Progress<br><span id="progress">0</span></div>
+  <div class="card">Resolved<br><span id="resolved">0</span></div>
+</div>
+
+<div class="chart-box">
+  <canvas id="chart"></canvas>
+</div>
+
+<h2>Complaints</h2>
+<div class="grid" id="list"></div>
+
+<script>
+
+let chart;
+
+async function load(){
+
+const res = await fetch("/api/complaints");
+const data = await res.json();
+
+/* ===== COUNTS ===== */
+const total=data.length;
+const pending=data.filter(x=>x.status==="Pending").length;
+const progress=data.filter(x=>x.status==="In Progress").length;
+const resolved=data.filter(x=>x.status==="Resolved").length;
+
+totalEl.textContent=total;
+pendingEl.textContent=pending;
+progressEl.textContent=progress;
+resolvedEl.textContent=resolved;
+
+
+/* ===== PIE CHART ===== */
+if(chart) chart.destroy();
+
+chart=new Chart(chartEl,{
+type:'pie',
+data:{
+labels:['Pending','In Progress','Resolved'],
+datasets:[{
+data:[pending,progress,resolved]
+}]
+}
+});
+
+
+/* ===== CARDS ===== */
+
+list.innerHTML="";
+
+data.forEach(c=>{
+
+list.innerHTML+=`
+<div class="complaint">
+
+<b>ID:</b> ${c.complaintId}<br>
+<b>Address:</b> ${c.address}<br>
+<b>Status:</b> ${c.status}<br>
+
+<p><b>Before</b></p>
+${c.beforeImage && c.beforeImage.trim()!=="" 
+  ? `<img src="/uploads/${c.beforeImage}">`
+  : "No image"}
+
+<p><b>After</b></p>
+${c.afterImage && c.afterImage.trim()!=="" 
+  ? `<img src="/uploads/${c.afterImage}">`
+  : "Not uploaded"}
+
+<input type="file" id="file-${c._id}">
+
+<select id="status-${c._id}">
+  <option ${c.status==="Pending"?"selected":""}>Pending</option>
+  <option ${c.status==="In Progress"?"selected":""}>In Progress</option>
+  <option ${c.status==="Resolved"?"selected":""}>Resolved</option>
+</select>
+
+<br>
+
+<button onclick="update('${c._id}')">Update</button>
+<button onclick="delComplaint('${c._id}')">Delete</button>
+
+</div>
+`;
+});
+}
+
+
+/* ===== UPDATE ===== */
+
+async function update(id){
+
+const file=document.getElementById("file-"+id).files[0];
+const status=document.getElementById("status-"+id).value;
+
+const form=new FormData();
+form.append("status",status);
+if(file) form.append("afterImage",file);
+
+await fetch("/api/complaints/"+id,{
+method:"PUT",
+body:form
+});
+
+load();
+}
+
+
+/* ===== DELETE ===== */
+
+async function delComplaint(id){
+
+if(!confirm("Delete complaint?")) return;
+
+await fetch("/api/complaints/"+id,{
+method:"DELETE"
+});
+
+load();
+}
+
+
+/* ===== INIT ===== */
+
+const totalEl=document.getElementById("total");
+const pendingEl=document.getElementById("pending");
+const progressEl=document.getElementById("progress");
+const resolvedEl=document.getElementById("resolved");
+const chartEl=document.getElementById("chart");
+const list=document.getElementById("list");
+
+load();
+
+</script>
+
+</body>
+</html>

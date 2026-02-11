@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Complaint Analytics</title>
+
+<!-- ⭐ Chart.js REQUIRED -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{
+    font-family:Arial;
+    background:#f2f2f2;
+}
+
+.container{
+    width:900px;
+    margin:auto;
+    padding:30px;
+    text-align:center;
+}
+
+.cards{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:30px;
+}
+
+.card{
+    background:white;
+    width:22%;
+    padding:20px;
+    border-radius:8px;
+    box-shadow:0 0 10px #ddd;
+    font-size:18px;
+}
+
+canvas{
+    margin-top:30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Complaint Dashboard Report</h2>
+
+<!-- ===== COUNTS ===== -->
+<div class="cards">
+    <div class="card">Total<br><b id="total">0</b></div>
+    <div class="card">Pending<br><b id="pending">0</b></div>
+    <div class="card">Progress<br><b id="progress">0</b></div>
+    <div class="card">Resolved<br><b id="resolved">0</b></div>
+</div>
+
+<!-- ===== CHARTS ===== -->
+<canvas id="pieChart"></canvas>
+<canvas id="barChart"></canvas>
+
+</div>
+
+
+<script>
+async function loadStats(){
+
+    const res = await fetch("/api/complaints/stats/all");
+    const data = await res.json();
+
+    // ✅ update counts
+    document.getElementById("total").innerText = data.total;
+    document.getElementById("pending").innerText = data.pending;
+    document.getElementById("progress").innerText = data.progress;
+    document.getElementById("resolved").innerText = data.resolved;
+
+    // ✅ Pie chart
+    new Chart(document.getElementById("pieChart"),{
+        type:'pie',
+        data:{
+            labels:['Pending','In Progress','Resolved'],
+            datasets:[{
+                data:[data.pending, data.progress, data.resolved]
+            }]
+        }
+    });
+
+    // ✅ Bar chart
+    new Chart(document.getElementById("barChart"),{
+        type:'bar',
+        data:{
+            labels:['Pending','In Progress','Resolved'],
+            datasets:[{
+                label:'Complaints',
+                data:[data.pending, data.progress, data.resolved]
+            }]
+        }
+    });
+}
+
+loadStats();
+</script>
+
+</body>
+</html>
