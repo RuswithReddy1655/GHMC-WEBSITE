@@ -8,86 +8,75 @@
 
     <!-- FontAwesome Icons -->
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        body{
-            margin:0;
-            background:#eef2f5;
+        body {
+            margin: 0;
+            background: #eef2f5;
             font-family: Arial, Helvetica, sans-serif;
         }
 
-        /* =========================
-           LAYOUT
-        ========================= */
-        .wrapper{
-            display:flex;
-            height:100vh;
+        .wrapper {
+            display: flex;
+            height: 100vh;
         }
 
-        /* =========================
-           SIDEBAR (same as dashboard)
-        ========================= */
-        .sidebar{
-            width:240px;
-            background:#0f2d4d;
-            color:white;
-            display:flex;
-            flex-direction:column;
-            padding-top:20px;
+        .sidebar {
+            width: 240px;
+            background: #0f2d4d;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
         }
 
-        .sidebar h4{
-            text-align:center;
-            margin-bottom:30px;
-            font-weight:bold;
+        .sidebar h4 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
         }
 
-        .sidebar a{
-            color:white;
-            text-decoration:none;
-            padding:14px 22px;
-            display:flex;
-            align-items:center;
-            gap:12px;
-            transition:0.3s;
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 22px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s;
         }
 
-        .sidebar a:hover{
-            background:#173f6b;
+        .sidebar a:hover {
+            background: #173f6b;
         }
 
-        /* active page highlight */
-        .sidebar a.active{
-            background:#14532d;
+        .sidebar a.active {
+            background: #14532d;
         }
 
-        /* push logout bottom */
-        .logout{
-            margin-top:auto;
-            margin-bottom:20px;
+        .logout {
+            margin-top: auto;
+            margin-bottom: 20px;
         }
 
-        /* =========================
-           CONTENT
-        ========================= */
-        .content{
-            flex:1;
-            padding:40px;
-            overflow:auto;
+        .content {
+            flex: 1;
+            padding: 40px;
+            overflow: auto;
         }
 
-        .card{
-            border-radius:16px;
-            max-width:700px;
-            margin:auto;
+        .card {
+            border-radius: 16px;
+            max-width: 700px;
+            margin: auto;
         }
 
-        .header{
-            font-size:22px;
-            font-weight:bold;
-            margin-bottom:20px;
-            color:#0f2d4d;
+        .header {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #0f2d4d;
         }
     </style>
 </head>
@@ -126,7 +115,6 @@
 
     </div>
 
-
     <!-- ================= CONTENT ================= -->
     <div class="content">
 
@@ -135,13 +123,14 @@
         </div>
 
         <div class="container">
-
             <div class="card shadow p-4">
 
                 <h4 class="text-center mb-4">Submit Complaint</h4>
 
+                <!-- ✅ IMPORTANT: id="issueForm" -->
                 <form id="issueForm" method="POST" enctype="multipart/form-data">
 
+                    <!-- Issue Type -->
                     <label class="fw-bold">Issue Type</label>
                     <select name="type" class="form-control mb-3" required>
                         <option value="">Select Department</option>
@@ -155,18 +144,29 @@
                         <option>Waste Management</option>
                     </select>
 
+                    <!-- Zone -->
                     <label class="fw-bold">Zone</label>
-                    <select id="zone" name="zone" class="form-control mb-3" required></select>
+                    <select id="zone" name="zone" class="form-control mb-3" required>
+                        <option value="">Select Zone</option>
+                    </select>
 
+                    <!-- Circle -->
                     <label class="fw-bold">Circle</label>
-                    <select id="circle" name="circle" class="form-control mb-3" required></select>
+                    <select id="circle" name="circle" class="form-control mb-3" required disabled>
+                        <option value="">Select Circle</option>
+                    </select>
 
+                    <!-- Ward -->
                     <label class="fw-bold">Ward</label>
-                    <select id="ward" name="ward" class="form-control mb-3" required></select>
+                    <select id="ward" name="ward" class="form-control mb-3" required disabled>
+                        <option value="">Select Ward</option>
+                    </select>
 
+                    <!-- Address -->
                     <label class="fw-bold">Address</label>
-                    <input name="address" class="form-control mb-3" required>
+                    <input type="text" name="address" class="form-control mb-3" required>
 
+                    <!-- Photo -->
                     <label class="fw-bold">Photo</label>
                     <input type="file" name="photo" class="form-control mb-4" accept="image/*" required>
 
@@ -174,18 +174,16 @@
                         Submit Complaint
                     </button>
 
-                    <p id="msg" class="text-center mt-3"></p>
-
                 </form>
 
             </div>
-
         </div>
 
     </div>
 
 </div>
-<!-- LOAD ORDER VERY IMPORTANT -->
+
+<!-- ✅ LOAD ORDER IS VERY IMPORTANT -->
 <script src="js/ghmc-data.js"></script>
 <script src="js/report-issue.js"></script>
 
